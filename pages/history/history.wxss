@@ -1,1 +1,13 @@
 /* pages/history/history.wxss */
+.container { padding: 30rpx; }
+.page-title { font-size: 44rpx; font-weight: bold; margin-bottom: 30rpx; }
+.history-card { background-color: #fff; border-radius: 16rpx; box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06); margin-bottom: 30rpx; }
+.card-header { padding: 20rpx 30rpx; border-bottom: 1rpx solid #f0f0f0; }
+.date { font-size: 26rpx; color: #888; }
+.card-body { padding: 30rpx; font-size: 30rpx; line-height: 1.6; }
+.prepayment-info { color: #2A64F5; font-weight: bold; margin-top: 10rpx; }
+.card-footer { display: flex; justify-content: flex-end; padding: 0 30rpx 30rpx; }
+.btn { font-size: 28rpx; margin-left: 20rpx; background-color: #f0f0f0; }
+.btn.primary { background-color: #2A64F5; color: white; }
+.empty { text-align: center; padding-top: 200rpx; color: #aaa; }
+.empty-img { width: 200rpx; height: 200rpx; margin-bottom: 20rpx; }

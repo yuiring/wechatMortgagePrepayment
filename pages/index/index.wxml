@@ -1,4 +1,3 @@
-<!-- pages/index/index.wxml -->
 <view class="container">
   <view class="main-card">
     <view class="card-header">
@@ -6,39 +5,37 @@
       <view class="header-subtitle">智能分析所有方案，助您做出最佳决策</view>
     </view>
     <view class="card-body">
-      <form bindsubmit="onCalculate">
-        <view class="form-group">
-          <text class="label">贷款总额 (万)</text>
-          <input name="totalAmount" type="digit" placeholder="请输入" placeholder-class="ph" />
-        </view>
-        <view class="form-group">
-          <text class="label">贷款年限 (年)</text>
-          <picker range="{{termRange}}" value="{{termIndex}}" bindchange="bindTermChange">
-            <view class="picker">{{termRange[termIndex]}} 年</view>
-          </picker>
-        </view>
-        <view class="form-group">
-          <text class="label">贷款利率 (%)</text>
-          <input name="rate" type="digit" placeholder="请输入" value="{{rate}}" bindinput="bindRateInput" placeholder-class="ph" />
-        </view>
-        <view class="form-group">
-          <text class="label">首次还款时间</text>
-          <picker mode="date" value="{{startDate}}" end="{{today}}" bindchange="bindDateChange" data-field="startDate">
-            <view class="picker">{{startDate}}</view>
-          </picker>
-        </view>
-        <view class="form-group">
-          <text class="label">计划还款时间</text>
-          <picker mode="date" value="{{prepaymentDate}}" start="{{startDate}}" end="{{farFutureDate}}" bindchange="bindDateChange" data-field="prepaymentDate">
-            <view class="picker">{{prepaymentDate}}</view>
-          </picker>
-        </view>
-        <view class="form-group">
-          <text class="label">提前还款 (万)</text>
-          <input name="prepaymentAmount" type="digit" placeholder="请输入" placeholder-class="ph" />
-        </view>
-        <button class="submit-btn" form-type="submit">一键智能分析</button>
-      </form>
+      <view class="form-group">
+        <text class="label">贷款总额 (万)</text>
+        <input name="totalAmount" type="digit" placeholder="请输入" placeholder-class="ph" value="{{formData.totalAmount}}" data-field="totalAmount" bindinput="handleInput" />
+      </view>
+      <view class="form-group">
+        <text class="label">贷款年限 (年)</text>
+        <picker range="{{termRange}}" value="{{termIndex}}" bindchange="bindTermChange">
+          <view class="picker">{{termRange[termIndex]}} 年</view>
+        </picker>
+      </view>
+      <view class="form-group">
+        <text class="label">贷款利率 (%)</text>
+        <input name="rate" type="digit" placeholder="请输入" value="{{rate}}" bindinput="bindRateInput" placeholder-class="ph" />
+      </view>
+      <view class="form-group">
+        <text class="label">首次还款时间</text>
+        <picker mode="date" value="{{startDate}}" end="{{today}}" bindchange="bindDateChange" data-field="startDate">
+          <view class="picker">{{startDate}}</view>
+        </picker>
+      </view>
+      <view class="form-group">
+        <text class="label">计划还款时间</text>
+        <picker mode="date" value="{{prepaymentDate}}" start="{{startDate}}" end="{{farFutureDate}}" bindchange="bindDateChange" data-field="prepaymentDate">
+          <view class="picker">{{prepaymentDate}}</view>
+        </picker>
+      </view>
+      <view class="form-group">
+        <text class="label">提前还款 (万)</text>
+        <input name="prepaymentAmount" type="digit" placeholder="请输入" placeholder-class="ph" value="{{formData.prepaymentAmount}}" data-field="prepaymentAmount" bindinput="handleInput"/>
+      </view>
+      <button class="submit-btn" bindtap="onCalculate">一键智能分析</button>
     </view>
   </view>
 </view>

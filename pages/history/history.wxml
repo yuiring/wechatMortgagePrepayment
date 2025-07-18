@@ -1,2 +1,24 @@
-<!--pages/history/history.wxml-->
-<text>pages/history/history.wxml</text>
+<!-- pages/history/history.wxml -->
+<view class="container">
+  <view class="page-title">计算历史</view>
+  <block wx:if="{{historyList.length > 0}}">
+    <view class="history-card" wx:for="{{historyList}}" wx:key="id">
+      <view class="card-header">
+        <text class="date">{{item.date}}</text>
+      </view>
+      <view class="card-body">
+        <view>贷款 {{item.formData.totalAmount}}万 / {{item.loanTerm}}年 / {{item.rate}}%</view>
+        <view class="prepayment-info">提前还款 {{item.formData.prepaymentAmount}}万</view>
+      </view>
+      <view class="card-footer">
+        <button class="btn primary" bindtap="viewResult" data-results="{{item.results}}">查看结果</button>
+        <button class="btn" bindtap="useThisRecord" data-record="{{item}}">以此为模板</button>
+      </view>
+    </view>
+  </block>
+  <view class="empty" wx:else>
+    <!-- V2.0 修复: 使用 Base64 SVG 替代外部图片 -->
+    <image class="empty-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2RkZGRkZCI+PHBhdGggZD0iTTE5LjM1IDkuMDNDMTguNjcgNi41OSAxNi4zNSA0LjUgMTMuNSA0LjVjLTIuNDMgMC00LjU1IDEuNDgtNS41MyAzLjU1QzUuNDEgOC40MSA0IDkuODIgNCAxMS41YzAgMi43NiAyLjI0IDUgNSA1aDEwLjVjMi40OSAwIDQuNS0yLjAxIDQuNS00LjVjMC0yLjM0LTEuNzUtNC4yNy00LjE1LTQuNDd6bS04LjM0IDguNDdMMTAgMTYuNDVWMTJoLTJ2NC40NWwtLjAxIDEuMDJ6bTQgMGwtMS4wMS0xLjAyVjEyaC0ydjQuNDVsMS4wMSAxLjAyek0xMiAxMy41YzEuMSAwIDItLjkgMi0ycy0uOS0yLTItMi0yIC45LTIgMiAuOSAyIDIgMnoiLz48L3N2Zz4="></image>
+    <text>暂无历史记录</text>
+  </view>
+</view>

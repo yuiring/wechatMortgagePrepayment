@@ -1,1 +1,11 @@
 /* pages/profile/profile.wxss */
+.container { padding: 30rpx; }
+.profile-card { text-align: center; background-color: #fff; padding: 60rpx 30rpx; border-radius: 16rpx; box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06); }
+.avatar { width: 160rpx; height: 160rpx; border-radius: 50%; margin-bottom: 20rpx; }
+.avatar-placeholder { width: 160rpx; height: 160rpx; border-radius: 50%; background-color: #f0f0f0; margin: 0 auto 20rpx; }
+.nickname { font-size: 36rpx; font-weight: bold; }
+
+.menu-list { margin-top: 30rpx; background-color: #fff; border-radius: 16rpx; box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06); }
+.menu-item { display: flex; justify-content: space-between; padding: 30rpx; border-bottom: 1rpx solid #f0f0f0; font-size: 30rpx; }
+.menu-item:last-child { border-bottom: none; }
+.arrow { color: #ccc; }

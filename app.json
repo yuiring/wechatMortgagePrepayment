@@ -2,13 +2,41 @@
   "pages": [
     "pages/index/index",
     "pages/result/result",
-    "pages/schedule/schedule"
+    "pages/schedule/schedule",
+    "pages/history/history",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "房贷智能助理",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#2A64F5",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "智能计算",
+        "iconPath": "assets/icon_calculator_gray.png",
+        "selectedIconPath": "assets/icon_calculator_blue.png"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "计算历史",
+        "iconPath": "assets/icon_history_gray.png",
+        "selectedIconPath": "assets/icon_history_blue.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "assets/icon_profile_gray.png",
+        "selectedIconPath": "assets/icon_profile_blue.png"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
