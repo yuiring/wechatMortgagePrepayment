@@ -1,0 +1,62 @@
+/* pages/index/index.wxss */
+.container {
+  padding: 30rpx 30rpx 60rpx;
+  background-color: #f0f4f9;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.main-card {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+.card-header {
+  padding: 40rpx;
+  background-image: linear-gradient(135deg, #4a7cfd, #2A64F5);
+  color: white;
+  text-align: center;
+}
+.header-title {
+  font-size: 44rpx;
+  font-weight: bold;
+}
+.header-subtitle {
+  font-size: 26rpx;
+  opacity: 0.8;
+  margin-top: 10rpx;
+}
+.card-body {
+  padding: 20rpx 40rpx 40rpx;
+}
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.label {
+  font-size: 30rpx;
+  color: #333;
+}
+input, .picker {
+  text-align: right;
+  font-size: 30rpx;
+  color: #555;
+}
+.ph {
+  color: #bbb;
+}
+.submit-btn {
+  margin-top: 40rpx;
+  width: 100%;
+  background-image: linear-gradient(to right, #3A7BFD, #2A64F5);
+  color: white;
+  font-size: 32rpx;
+  border-radius: 16rpx;
+  padding: 24rpx 0;
+  box-shadow: 0 8rpx 16rpx rgba(42, 100, 245, 0.3);
+  border: none;
+}

@@ -1,0 +1,47 @@
+<!-- pages/result/result.wxml -->
+<view class="container">
+  <view class="page-title">方案对比分析</view>
+  <view class="page-subtitle">我们已为您计算所有可能，并推荐最佳方案</view>
+
+  <!-- 方案对比卡片 -->
+  <block wx:for="{{scenarios}}" wx:key="name" wx:for-item="scenario" wx:for-index="idx">
+    <view class="card scenario-card">
+      <view class="recommend-badge" wx:if="{{scenario.isRecommended}}">最佳推荐</view>
+      <view class="card-header"><text class="scenario-name">{{scenario.name}}</text></view>
+      <view class="card-body">
+        
+        <!-- 【重构】突出展示核心指标 -->
+        <view class="hero-metric">
+          <text class="hero-label">节省利息总额</text>
+          <view class="hero-value">
+            <text>{{scenario.interestSaved}}</text>
+            <text class="hero-unit">元</text>
+          </view>
+        </view>
+
+        <!-- 【重构】其他指标使用 2x2 网格布局 -->
+        <view class="details-grid">
+          <view class="detail-item">
+            <text class="item-label">新月供 (首月)</text>
+            <text class="item-value">{{scenario.newMonthlyPayment}} 元</text>
+          </view>
+          <view class="detail-item">
+            <text class="item-label">新还款期数</text>
+            <text class="item-value">{{scenario.newTerm}} 月</text>
+          </view>
+          <view class="detail-item">
+            <text class="item-label">等效投资年化 (IRR)</text>
+            <text class="item-value irr">{{scenario.irr}} %</text>
+          </view>
+          <view class="detail-item">
+            <text class="item-label">每万元撬动利息</text>
+            <text class="item-value leverage">{{scenario.leverage}} 元</text>
+          </view>
+        </view>
+
+        <button class="view-details-btn" data-key="{{idx}}" bindtap="viewSchedule">查看每月还款详情</button>
+      </view>
+    </view>
+  </block>
+  <button class="back-btn" bindtap="goBack">返回重新计算</button>
+</view>

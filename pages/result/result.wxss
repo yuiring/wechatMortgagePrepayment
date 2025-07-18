@@ -1,0 +1,126 @@
+/* pages/result/result.wxss */
+.container {
+  padding: 30rpx;
+  background-color: #f4f6f9;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.page-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  text-align: center;
+}
+.page-subtitle {
+  font-size: 28rpx;
+  color: #888;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.card {
+  background-color: #fff;
+  border-radius: 24rpx; /* 增加圆角 */
+  margin-bottom: 30rpx;
+  box-shadow: 0 8rpx S30rpx rgba(0, 0, 0, 0.06); /* 优化阴影 */
+  overflow: hidden;
+}
+.card-header {
+  padding: 24rpx 40rpx;
+  background-color: #f7f9fc;
+  border-bottom: 1rpx solid #eee;
+}
+.scenario-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2A64F5;
+}
+.scenario-card {
+  position: relative;
+}
+.recommend-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: linear-gradient(135deg, #ffc107, #ffa000);
+  color: white;
+  padding: 8rpx 20rpx;
+  font-size: 24rpx;
+  border-top-right-radius: 24rpx;
+  border-bottom-left-radius: 24rpx;
+}
+.card-body {
+  padding: 40rpx;
+}
+
+/* 【新增】核心指标样式 */
+.hero-metric {
+  text-align: center;
+  padding-bottom: 30rpx;
+  margin-bottom: 30rpx;
+  border-bottom: 1rpx dashed #eee;
+}
+.hero-label {
+  font-size: 28rpx;
+  color: #888;
+}
+.hero-value {
+  font-size: 64rpx;
+  font-weight: bold;
+  color: #FFA500;
+  margin-top: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+.hero-unit {
+  font-size: 28rpx;
+  font-weight: normal;
+  margin-left: 10rpx;
+}
+
+/* 【新增】次要指标网格布局 */
+.details-grid {
+  display: flex;
+  flex-wrap: wrap; /* 允许换行 */
+  justify-content: space-between;
+}
+.detail-item {
+  width: 50%; /* 每项占50%宽度，实现两列布局 */
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.detail-item .item-label {
+  font-size: 26rpx;
+  color: #888;
+  display: block;
+}
+.detail-item .item-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-top: 10rpx;
+}
+.detail-item .item-value.irr {
+  color: #28a745;
+}
+.detail-item .item-value.leverage {
+  color: #2A64F5;
+}
+
+/* 按钮样式 */
+.view-details-btn {
+  margin-top: 10rpx; /* 调整与上方间距 */
+  background-color: #f0f4f9;
+  color: #555;
+  font-size: 28rpx;
+}
+.back-btn {
+  width: 100%;
+  background-color: #fff;
+  color: #333;
+  font-size: 32rpx;
+  border-radius: 16rpx;
+  padding: 24rpx 0;
+  border: 1rpx solid #ddd;
+  margin-top: 20rpx;
+}
