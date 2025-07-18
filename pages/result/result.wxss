@@ -5,22 +5,26 @@
   min-height: 100vh;
   box-sizing: border-box;
 }
-.page-title {
-  font-size: 44rpx;
-  font-weight: bold;
-  text-align: center;
-}
-.page-subtitle {
-  font-size: 28rpx;
-  color: #888;
-  text-align: center;
-  margin-bottom: 40rpx;
-}
+/* V2.2 新增: 投资分析卡片样式 */
+.analysis-card { margin-bottom: 30rpx; }
+.analysis-title { font-size: 32rpx; font-weight: bold; color: #2A64F5; }
+.analysis-text { font-size: 28rpx; line-height: 1.7; color: #555; margin-bottom: 30rpx; }
+.analysis-compare { display: flex; margin-bottom: 30rpx; }
+.compare-item { flex: 1; text-align: center; padding: 20rpx; border-radius: 12rpx; margin: 0 10rpx; }
+.compare-item.green { background-color: #e8f5e9; }
+.compare-item.red { background-color: #ffebee; }
+.compare-title { font-size: 28rpx; font-weight: bold; }
+.compare-item.green .compare-title { color: #2e7d32; }
+.compare-item.red .compare-title { color: #c62828; }
+.compare-desc { font-size: 24rpx; color: #666; margin-top: 10rpx; }
+.analysis-example { background-color: #f7f9fc; padding: 20rpx; border-radius: 12rpx; font-size: 26rpx; color: #555; line-height: 1.6; }
+.example-value { color: #FFA500; font-size: 32rpx; font-weight: bold; }
+
 .card {
   background-color: #fff;
-  border-radius: 24rpx; /* 增加圆角 */
+  border-radius: 24rpx;
   margin-bottom: 30rpx;
-  box-shadow: 0 8rpx S30rpx rgba(0, 0, 0, 0.06); /* 优化阴影 */
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.06);
   overflow: hidden;
 }
 .card-header {
@@ -31,7 +35,7 @@
 .scenario-name {
   font-size: 32rpx;
   font-weight: bold;
-  color: #2A64F5;
+  color: #333;
 }
 .scenario-card {
   position: relative;
@@ -51,76 +55,31 @@
   padding: 40rpx;
 }
 
-/* 【新增】核心指标样式 */
-.hero-metric {
-  text-align: center;
-  padding-bottom: 30rpx;
-  margin-bottom: 30rpx;
+.hero-metric { text-align: center; padding-bottom: 30rpx; }
+.hero-label { font-size: 28rpx; color: #888; }
+.hero-value { font-size: 64rpx; font-weight: bold; color: #FFA500; margin-top: 10rpx; display: flex; justify-content: center; align-items: baseline; }
+.hero-unit { font-size: 28rpx; font-weight: normal; margin-left: 10rpx; }
+
+/* V2.2 新增: 财务对比样式 */
+.financial-comparison {
+  border-top: 1rpx dashed #eee;
   border-bottom: 1rpx dashed #eee;
+  padding: 30rpx 0;
+  margin-bottom: 30rpx;
 }
-.hero-label {
-  font-size: 28rpx;
-  color: #888;
-}
-.hero-value {
-  font-size: 64rpx;
-  font-weight: bold;
-  color: #FFA500;
-  margin-top: 10rpx;
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-}
-.hero-unit {
-  font-size: 28rpx;
-  font-weight: normal;
-  margin-left: 10rpx;
-}
+.fc-row { display: flex; justify-content: space-between; align-items: center; padding: 10rpx 0; }
+.fc-label { font-size: 28rpx; color: #555; }
+.fc-value { font-size: 32rpx; font-weight: bold; }
+.fc-value.original { color: #c62828; text-decoration: line-through; }
+.fc-value.new { color: #2e7d32; }
 
-/* 【新增】次要指标网格布局 */
-.details-grid {
-  display: flex;
-  flex-wrap: wrap; /* 允许换行 */
-  justify-content: space-between;
-}
-.detail-item {
-  width: 50%; /* 每项占50%宽度，实现两列布局 */
-  text-align: center;
-  margin-bottom: 40rpx;
-}
-.detail-item .item-label {
-  font-size: 26rpx;
-  color: #888;
-  display: block;
-}
-.detail-item .item-value {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #333;
-  display: block;
-  margin-top: 10rpx;
-}
-.detail-item .item-value.irr {
-  color: #28a745;
-}
-.detail-item .item-value.leverage {
-  color: #2A64F5;
-}
+.details-grid { display: flex; flex-wrap: wrap; justify-content: space-between; }
+.detail-item { width: 50%; text-align: center; margin-bottom: 40rpx; }
+.item-label { font-size: 26rpx; color: #888; display: block; }
+.irr-label { text-decoration: underline; text-decoration-style: dotted; }
+.item-value { font-size: 36rpx; font-weight: bold; color: #333; display: block; margin-top: 10rpx; }
+.item-value.irr { color: #28a745; }
+.item-value.leverage { color: #2A64F5; }
 
-/* 按钮样式 */
-.view-details-btn {
-  margin-top: 10rpx; /* 调整与上方间距 */
-  background-color: #f0f4f9;
-  color: #555;
-  font-size: 28rpx;
-}
-.back-btn {
-  width: 100%;
-  background-color: #fff;
-  color: #333;
-  font-size: 32rpx;
-  border-radius: 16rpx;
-  padding: 24rpx 0;
-  border: 1rpx solid #ddd;
-  margin-top: 20rpx;
-}
+.view-details-btn { margin-top: 10rpx; background-color: #f0f4f9; color: #555; font-size: 28rpx; }
+.back-btn { width: 100%; background-color: #fff; color: #333; font-size: 32rpx; border-radius: 16rpx; padding: 24rpx 0; border: 1rpx solid #ddd; margin-top: 20rpx; }

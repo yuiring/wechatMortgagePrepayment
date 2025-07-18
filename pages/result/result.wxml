@@ -1,7 +1,30 @@
 <!-- pages/result/result.wxml -->
 <view class="container">
-  <view class="page-title">方案对比分析</view>
-  <view class="page-subtitle">我们已为您计算所有可能，并推荐最佳方案</view>
+  <!-- V2.2 新增: 投资对比分析卡片 -->
+  <view class="card analysis-card" wx:if="{{investmentAnalysis.hasData}}">
+    <view class="card-header"><text class="analysis-title">另一种选择：用这 {{prepaymentAmount}} 万去投资？</text></view>
+    <view class="card-body">
+      <view class="analysis-text">
+        提前还款的本质，是用一笔现金去“购买”未来的利息减免。这笔钱的“投资回报率”就是IRR。
+        您可以将IRR与您的理财产品年化收益率直接比较：
+      </view>
+      <view class="analysis-compare">
+        <view class="compare-item green">
+          <view class="compare-title">IRR > 理财收益率</view>
+          <view class="compare-desc">提前还款更划算</view>
+        </view>
+        <view class="compare-item red">
+          <view class="compare-title">IRR &lt; 理财收益率</view>
+          <view class="compare-desc">投资理财收益更高</view>
+        </view>
+      </view>
+      <view class="analysis-example">
+        <text>举例：以年化{{investmentAnalysis.investmentRatePercent}}%的保守理财计算，您的{{prepaymentAmount}}万元在{{investmentAnalysis.termSavedInYears}}年后将变为</text>
+        <text class="example-value">{{investmentAnalysis.futureValueInWan}}</text>
+        <text>万元。</text>
+      </view>
+    </view>
+  </view>
 
   <!-- 方案对比卡片 -->
   <block wx:for="{{scenarios}}" wx:key="name" wx:for-item="scenario" wx:for-index="idx">
@@ -10,7 +33,6 @@
       <view class="card-header"><text class="scenario-name">{{scenario.name}}</text></view>
       <view class="card-body">
         
-        <!-- 【重构】突出展示核心指标 -->
         <view class="hero-metric">
           <text class="hero-label">节省利息总额</text>
           <view class="hero-value">
@@ -19,7 +41,18 @@
           </view>
         </view>
 
-        <!-- 【重构】其他指标使用 2x2 网格布局 -->
+        <!-- V2.2 新增: 财务对比模块 -->
+        <view class="financial-comparison">
+          <view class="fc-row">
+            <text class="fc-label">原方案后续总支出</text>
+            <text class="fc-value original">{{scenario.originalFuturePaymentInWan}} 万</text>
+          </view>
+          <view class="fc-row">
+            <text class="fc-label">新方案后续总支出</text>
+            <text class="fc-value new">{{scenario.newFuturePaymentInWan}} 万</text>
+          </view>
+        </view>
+
         <view class="details-grid">
           <view class="detail-item">
             <text class="item-label">新月供 (首月)</text>
@@ -30,7 +63,7 @@
             <text class="item-value">{{scenario.newTerm}} 月</text>
           </view>
           <view class="detail-item">
-            <text class="item-label">等效投资年化 (IRR)</text>
+            <text class="item-label irr-label" bindtap="showIrrTip">等效投资年化 (IRR)</text>
             <text class="item-value irr">{{scenario.irr}} %</text>
           </view>
           <view class="detail-item">
