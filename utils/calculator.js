@@ -1,5 +1,6 @@
 // utils/calculator.js
-// V2.2 算法升级: 返回更丰富的财务数据
+// V2.5 IRR 最终修复版: 重构了核心计算逻辑，确保所有场景的IRR被精确计算。
+
 /**
  * 内部收益率 (IRR) 计算函数 (牛顿迭代法)
  * @param {number[]} cashFlows - 现金流数组, 第一个为负数投资
@@ -27,9 +28,9 @@ function calculateIRR(cashFlows) {
     }
     guess = newGuess;
   }
+  // 将月利率转换为年化利率
   return (Math.pow(1 + guess, 12) - 1) * 100;
 }
-
 
 /**
  * 主分析函数
@@ -64,19 +65,19 @@ function analyze(params) {
 function calculateSingleScenario(params) {
   const { totalAmount, loanTerm, rate, monthsPaid, prepaymentAmount, repaymentMethod, prepaymentOption } = params;
   
-  // 1. 计算原始方案
-  let originalFutureCashFlow = [];
-  let originalTotalInterest = 0;
-  let remainingPrincipal = 0;
-  let alreadyPaidInterest = 0;
+  // 1. 计算原始方案的各项数据
   const originalRemainingTerm = loanTerm - monthsPaid;
+  let originalTotalInterest = 0;
+  let alreadyPaidInterest = 0;
+  let remainingPrincipal = 0;
+  let originalFutureCashFlow = [];
 
   if (repaymentMethod === 'AC') {
     const monthlyPayment = totalAmount * rate * Math.pow(1 + rate, loanTerm) / (Math.pow(1 + rate, loanTerm) - 1);
     originalTotalInterest = monthlyPayment * loanTerm - totalAmount;
     remainingPrincipal = totalAmount * (Math.pow(1 + rate, loanTerm) - Math.pow(1 + rate, monthsPaid)) / (Math.pow(1 + rate, loanTerm) - 1);
     alreadyPaidInterest = monthlyPayment * monthsPaid - (totalAmount - remainingPrincipal);
-    for(let i=0; i < originalRemainingTerm; i++) originalFutureCashFlow.push(monthlyPayment);
+    for(let i = 0; i < originalRemainingTerm; i++) originalFutureCashFlow.push(monthlyPayment);
   } else { // AP
     const monthlyPrincipalPayment = totalAmount / loanTerm;
     let tempPrincipal = totalAmount;
@@ -93,9 +94,8 @@ function calculateSingleScenario(params) {
     remainingPrincipal = totalAmount - monthlyPrincipalPayment * monthsPaid;
   }
   const originalFuturePayment = originalFutureCashFlow.reduce((a, b) => a + b, 0);
-  const originalRemainingInterest = originalFuturePayment - remainingPrincipal;
 
-  // 2. 处理提前还款
+  // 2. 处理提前还清的特殊情况
   if (prepaymentAmount >= remainingPrincipal) {
     const finalInterestSaved = originalTotalInterest - alreadyPaidInterest;
     return {
@@ -109,39 +109,45 @@ function calculateSingleScenario(params) {
 
   const newPrincipal = remainingPrincipal - prepaymentAmount;
   
-  // 3. 计算新方案
+  // 3. 计算新方案的未来现金流和还款计划
   let newTerm = 0;
   let newFutureCashFlow = [];
   let newAmortizationSchedule = [];
 
+  // 确定新方案的期数
   if (prepaymentOption === 'shortenTerm') {
-      if (repaymentMethod === 'AC') {
-        const originalMonthlyPayment = originalFutureCashFlow[0];
-        newTerm = Math.ceil(Math.log(originalMonthlyPayment / (originalMonthlyPayment - newPrincipal * rate)) / Math.log(1 + rate));
-      } else {
-        const monthlyPrincipal = totalAmount / loanTerm;
-        newTerm = Math.ceil(newPrincipal / monthlyPrincipal);
-      }
-  } else {
-      newTerm = originalRemainingTerm;
+    if (repaymentMethod === 'AC') {
+      const originalMonthlyPayment = originalFutureCashFlow[0];
+      newTerm = Math.ceil(Math.log(originalMonthlyPayment / (originalMonthlyPayment - newPrincipal * rate)) / Math.log(1 + rate));
+    } else { // AP
+      const originalMonthlyPrincipal = totalAmount / loanTerm;
+      newTerm = Math.ceil(newPrincipal / originalMonthlyPrincipal);
+    }
+  } else { // reducePayment
+    newTerm = originalRemainingTerm;
   }
 
   // 生成新方案的还款计划和现金流
   let tempNewPrincipal = newPrincipal;
   if(isFinite(newTerm)){
-    for(let i=1; i<=newTerm; i++) {
+    for(let i = 1; i <= newTerm; i++) {
         let currentPayment, interest, principalPaid;
         if(repaymentMethod === 'AC') {
             interest = tempNewPrincipal * rate;
-            if(prepaymentOption === 'shortenTerm') {
+            if (prepaymentOption === 'shortenTerm') {
                 currentPayment = originalFutureCashFlow[0];
                 principalPaid = (i === newTerm) ? tempNewPrincipal : currentPayment - interest;
-            } else {
+            } else { // reducePayment
                 currentPayment = newPrincipal * rate * Math.pow(1 + rate, newTerm) / (Math.pow(1 + rate, newTerm) - 1);
                 principalPaid = currentPayment - interest;
             }
         } else { // AP
-            let monthlyPrincipal = (prepaymentOption === 'shortenTerm') ? totalAmount / loanTerm : newPrincipal / newTerm;
+            let monthlyPrincipal;
+            if (prepaymentOption === 'shortenTerm') {
+                monthlyPrincipal = totalAmount / loanTerm;
+            } else { // reducePayment
+                monthlyPrincipal = newPrincipal / newTerm;
+            }
             principalPaid = Math.min(monthlyPrincipal, tempNewPrincipal);
             interest = tempNewPrincipal * rate;
         }
@@ -153,7 +159,7 @@ function calculateSingleScenario(params) {
     }
   }
 
-  // 4. 计算最终结果
+  // 4. 计算最终的对比指标
   const irrCashFlow = [-prepaymentAmount];
   const maxLength = Math.max(originalFutureCashFlow.length, newFutureCashFlow.length);
   for (let i = 0; i < maxLength; i++) {

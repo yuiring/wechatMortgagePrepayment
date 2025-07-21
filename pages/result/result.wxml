@@ -1,6 +1,6 @@
 <!-- pages/result/result.wxml -->
 <view class="container">
-  <!-- V2.2 新增: 投资对比分析卡片 -->
+  <!-- 投资对比分析卡片 -->
   <view class="card analysis-card" wx:if="{{investmentAnalysis.hasData}}">
     <view class="card-header"><text class="analysis-title">另一种选择：用这 {{prepaymentAmount}} 万去投资？</text></view>
     <view class="card-body">
@@ -10,11 +10,13 @@
       </view>
       <view class="analysis-compare">
         <view class="compare-item green">
-          <view class="compare-title">IRR > 理财收益率</view>
+          <!-- 大于号通常没问题，但为了规范，也一并处理 -->
+          <view class="compare-title"><text decode="{{true}}">IRR &gt; 理财收益率</text></view>
           <view class="compare-desc">提前还款更划算</view>
         </view>
         <view class="compare-item red">
-          <view class="compare-title">IRR &lt; 理财收益率</view>
+          <!-- V2.4 最终修复: 使用 text 组件和 decode 属性来正确显示特殊字符 -->
+          <view class="compare-title"><text decode="{{true}}">IRR &lt; 理财收益率</text></view>
           <view class="compare-desc">投资理财收益更高</view>
         </view>
       </view>
@@ -41,7 +43,7 @@
           </view>
         </view>
 
-        <!-- V2.2 新增: 财务对比模块 -->
+        <!-- 财务对比模块 -->
         <view class="financial-comparison">
           <view class="fc-row">
             <text class="fc-label">原方案后续总支出</text>
